@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Resolución de la Elipse por Completar Cuadrados</title>
+  <link rel="stylesheet" href="forma3.css">
+</head>
+<body>
+
+   <header>
+    <div class="logo" id="menuToggle">&#x22EE;</div>
+    <nav class="top-menu">
+      <ul>
+         <li><a href="forma1.html" class="menu-item ">Punto medio</a></li>
+        <li><a href="forma2.html" class="menu-item ">Ecuación canónica</a></li>
+        <li><a href="forma3.html" class="menu-item active">Completar cuadrados</a></li>
+        <li><a href="forma4.html" class="menu-item">Transformaciones geométricas</a></li>
+        <li><a href="forma5.html" class="menu-item">Gráfico</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <aside id="sideMenu">
+    <button id="closeBtn">&times;</button>
+    <ul>
+  <li><a href="videos.html">Videos</a></li>
+      <li><a href="ejemplo3.html">Ejemplos</a></li>
+<li><a href="e1.html">Información</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <div id="textoProcedimiento">
+      <h2>Resolución paso a paso</h2>
+      <p>Introduce los coeficientes de la ecuación general de la elipse:</p>
+      <input type="number" id="A" placeholder="A (coef. x²)" />
+      <input type="number" id="B" placeholder="B (coef. y²)" />
+      <input type="number" id="C" placeholder="C (coef. x)" />
+      <input type="number" id="D" placeholder="D (coef. y)" />
+      <input type="number" id="E" placeholder="E (término independiente)" />
+      <button onclick="resolverElipse()">Resolver</button>
+      <pre id="output"></pre>
+    </div>
+
+    <div id="graficador">
+      <h2>Gráfica de la Elipse</h2>
+      <canvas id="canvas" width="400" height="400"></canvas>
+    </div>
+  </main>
+
+  <script src="forma3.js"></script>
+  <script>
+    document.getElementById("menuToggle").onclick = () => {
+      document.getElementById("sideMenu").style.left = "0";
+    };
+    document.getElementById("closeBtn").onclick = () => {
+      document.getElementById("sideMenu").style.left = "-260px";
+    };</script>
+
+</body>
+</html>

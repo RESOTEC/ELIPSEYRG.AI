@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Transformaciones Geométricas</title>
+  <link rel="stylesheet" href="forma4.css" />
+</head>
+<body>
+  <header>
+    <div class="logo" id="menuToggle">&#x22EE;</div>
+    <nav class="top-menu">
+      <ul>
+          <li><a href="forma1.html" class="menu-item ">Punto medio</a></li>
+        <li><a href="forma2.html" class="menu-item">Ecuación canónica</a></li>
+        <li><a href="forma3.html" class="menu-item">Completar cuadrados</a></li>
+        <li><a href="forma4.html" class="menu-item active">Transformaciones geométricas</a></li>
+        <li><a href="forma5.html" class="menu-item">Gráfico</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <aside id="sideMenu">
+    <button id="closeBtn">&times;</button>
+    <ul>
+       <li><a href="videos.html">Videos</a></li>
+      <li><a href="ejemplo4.html">Ejemplos</a></li>
+<li><a href="e1.html">Información</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <div id="textoProcedimiento">
+      <h2>Resolución por Transformaciones Geométricas</h2>
+      <p>Introduce los parámetros de la elipse:</p>
+      <input type="number" id="a" placeholder="a (semi-eje mayor)" />
+      <input type="number" id="b" placeholder="b (semi-eje menor)" />
+      <input type="number" id="h" placeholder="h (desplazamiento en x)" />
+      <input type="number" id="k" placeholder="k (desplazamiento en y)" />
+      <input type="number" id="θ" placeholder="θ (rotación en grados)" />
+      <button onclick="resolverTransformacion()">Resolver</button>
+      <pre id="output"></pre>
+    </div>
+
+    <div id="graficador">
+      <h2>Gráfica en Plano Cartesiano</h2>
+      <canvas id="canvas" width="400" height="400"></canvas>
+    </div>
+  </main>
+
+  <script src="forma4.js"></script>
+  <script>
+    document.getElementById("menuToggle").onclick = () => {
+      document.getElementById("sideMenu").style.left = "0";
+    };
+    document.getElementById("closeBtn").onclick = () => {
+      document.getElementById("sideMenu").style.left = "-260px";
+    };
+  </script>
+</body>
+</html>

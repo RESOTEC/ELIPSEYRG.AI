@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elipses – Método Gráfico</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #fdfdfd;
+    }
+
+    .contenedor {
+      border: 3px solid #500c70;
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      color: #500c70;
+    }
+
+    .ejemplo {
+      margin-top: 30px;
+      padding: 15px;
+      border: 2px dashed #500c70;
+      border-radius: 10px;
+    }
+
+    .titulo-ejemplo {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #500c70;
+    }
+
+    .pasos {
+      white-space: pre-line;
+      padding: 10px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    canvas {
+      background: #fff;
+      border: 1px solid #ccc;
+      display: block;
+      margin: 20px auto;
+    }
+    @media (max-width: 480px) {
+  body {
+    margin: 10px; /* Margen aún más reducido para móviles */
+  }
+
+  .contenedor {
+    padding: 10px; /* Más reducción de padding */
+  }
+
+  h1 {
+    font-size: 1.6em; /* Título aún más pequeño para pantallas muy pequeñas */
+  }
+
+  .titulo-ejemplo {
+    font-size: 16px; /* Título de ejemplo más pequeño */
+  }
+
+  .pasos {
+    font-size: 13px; /* Tamaño de fuente más pequeño para los pasos */
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Resolución de Elipses – Método Gráfico</h1>
+
+    <div class="ejemplo">
+      <div class="titulo-ejemplo">Ejemplo 1: Elipse horizontal – Método gráfico</div>
+      <div class="pasos" id="pasos1"></div>
+      <canvas id="grafica1" width="400" height="300"></canvas>
+    </div>
+
+    <div class="ejemplo">
+      <div class="titulo-ejemplo">Ejemplo 2: Elipse vertical – Método gráfico</div>
+      <div class="pasos" id="pasos2"></div>
+      <canvas id="grafica2" width="400" height="300"></canvas>
+    </div>
+  </div>
+
+  <script>
+    function mostrarPasos() {
+      const pasos1 = `
+EJEMPLO 1 – Elipse: x²/16 + y²/9 = 1
+
+Paso 1: Identificamos que es una elipse horizontal (a² = 16, b² = 9).
+   Centro: (0, 0)
+   a = 4, b = 3
+
+Paso 2: Dibujamos el plano cartesiano y ubicamos el centro en el origen.
+
+Paso 3: Marcamos los vértices:
+   Sobre eje X: (+/- a) = ±4 ⇒ puntos (4,0) y (-4,0)
+   Sobre eje Y: (+/- b) = ±3 ⇒ puntos (0,3) y (0,-3)
+
+Paso 4: Trazamos el rectángulo guía conectando los puntos extremos:
+   Rectángulo de 8 unidades de ancho y 6 de alto.
+
+Paso 5: Dibujamos la elipse tangente a los lados del rectángulo,
+   pasando suavemente por los vértices.
+
+Paso 6: Verificamos simetría respecto a los ejes.`;
+
+      const pasos2 = `
+EJEMPLO 2 – Elipse: x²/9 + y²/25 = 1
+
+Paso 1: Identificamos que es una elipse vertical (b² > a²).
+   Centro: (0, 0)
+   a = 3, b = 5
+
+Paso 2: En el plano cartesiano colocamos el centro.
+
+Paso 3: Vértices:
+   Sobre eje X: ±3 ⇒ (3,0) y (-3,0)
+   Sobre eje Y: ±5 ⇒ (0,5) y (0,-5)
+
+Paso 4: Trazamos un rectángulo de guía:
+   Ancho: 6, Alto: 10
+
+Paso 5: Dibujamos la elipse dentro del rectángulo, pasando por los vértices.
+
+Paso 6: Aseguramos que sea simétrica y suave, y repasamos con color.`;
+
+      document.getElementById("pasos1").innerText = pasos1;
+      document.getElementById("pasos2").innerText = pasos2;
+    }
+
+    function dibujarElipse(canvasId, a, b) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext("2d");
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.scale(1, -1);
+
+      // Ejes
+      ctx.strokeStyle = "#ccc";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(-canvas.width / 2, 0);
+      ctx.lineTo(canvas.width / 2, 0);
+      ctx.moveTo(0, -canvas.height / 2);
+      ctx.lineTo(0, canvas.height / 2);
+      ctx.stroke();
+
+      const escala = 20;
+
+      // Elipse
+      ctx.strokeStyle = "#500c70";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let t = 0; t <= 2 * Math.PI; t += 0.01) {
+        const x = a * Math.cos(t);
+        const y = b * Math.sin(t);
+        ctx.lineTo(x * escala, y * escala);
+      }
+      ctx.stroke();
+
+      // Rectángulo guía
+      ctx.setLineDash([5, 3]);
+      ctx.strokeStyle = "#888";
+      ctx.lineWidth = 1;
+      ctx.strokeRect(-a * escala, -b * escala, 2 * a * escala, 2 * b * escala);
+      ctx.setLineDash([]);
+
+      // Centro
+      ctx.fillStyle = "red";
+      ctx.beginPath();
+      ctx.arc(0, 0, 3, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
+    mostrarPasos();
+    dibujarElipse("grafica1", 4, 3); // a=4, b=3
+    dibujarElipse("grafica2", 3, 5); // a=3, b=5
+  </script>
+</body>
+</html>

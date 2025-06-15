@@ -1,0 +1,351 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding-top: 80px; /* espacio para header fijo */
+  height: 100vh;
+  overflow: hidden; /* Para que no salga scrollbar general */
+}
+
+/* Header fijo */
+header {
+  background-color: #11535f; /* Color de tu código original */
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 999;
+}
+
+.logo {
+  font-size: 28px;
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+.top-menu ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.top-menu li a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+.top-menu li a:hover,
+.top-menu li a.active {
+  border-color: white;
+  color: white;
+  background-color: transparent;
+  box-shadow: 0 0 10px white;
+}
+
+/* Menú lateral */
+#sideMenu {
+  width: 250px;
+  height: 100vh;
+  background-color: #11535f; /* Color de tu código original */
+  color: white;
+  position: fixed;
+  top: 0;
+  left: -260px; /* Se esconde 10px más que su ancho */
+  transition: left 0.3s ease;
+  padding-top: 80px;
+  z-index: 1000;
+  overflow-y: auto;
+}
+
+#sideMenu ul {
+  list-style: none;
+  padding: 0 20px;
+}
+
+#sideMenu ul li {
+  margin: 15px 0;
+}
+
+#sideMenu ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  display: block;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+#sideMenu ul li a:hover {
+  border-color: white;
+  color: white;
+  background-color: transparent;
+  box-shadow: 0 0 10px white;
+}
+
+#closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Main: layout dividido */
+main {
+  display: flex;
+  gap: 40px;
+  padding: 20px;
+  height: calc(100vh - 80px); /* altura menos header */
+  box-sizing: border-box;
+  overflow: hidden; /* Esto deberá cambiar en responsive */
+  background: white;
+  margin-left: 0; /* lo ajustaremos con JS si sidebar visible */
+  transition: margin-left 0.3s ease;
+}
+
+/* Área texto con scroll */
+#textoProcedimiento {
+  flex: 1;
+  max-width: 45%;
+  font-family: monospace;
+  white-space: pre-wrap;
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  color: #333;
+  overflow-y: auto;
+  height: 100%;
+}
+
+/* Inputs y botones en el texto */
+#textoProcedimiento input[type="number"] {
+  width: 45%;
+  padding: 8px;
+  margin: 5px 5px 15px 0;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#textoProcedimiento button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #11535f; /* Color de tu código original */
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+#textoProcedimiento button:hover {
+  background-color: rgb(6, 32, 58); /* Corregida la sintaxis del color, asumo que era para un tono más oscuro */
+}
+
+#output {
+  margin-top: 15px;
+  max-height: 400px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Área gráfica */
+#graficador {
+  flex: 1;
+  max-width: 45%;
+  background: #fff;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  height: 100%;
+}
+
+#graficador h2 {
+  margin-bottom: 15px;
+  font-weight: 600;
+}
+
+#graficador canvas {
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 0 5px #d0d0d0;
+  border-radius: 4px;
+  max-width: 100%; /* Asegura que el canvas sea responsive por defecto */
+  height: auto; /* Mantiene la proporción del canvas */
+}
+
+/* Scrollbar custom para output y menú lateral */
+#output::-webkit-scrollbar,
+#sideMenu::-webkit-scrollbar {
+  width: 6px;
+}
+
+#output::-webkit-scrollbar-thumb,
+#sideMenu::-webkit-scrollbar-thumb {
+  background-color: #005bb5;
+  border-radius: 3px;
+}
+
+#output::-webkit-scrollbar-track,
+#sideMenu::-webkit-scrollbar-track {
+  background-color: #eaf2ff;
+}
+
+
+/* Para pantallas medianas (tablet y algunos desktops pequeños) */
+@media (max-width: 900px) {
+  body {
+    padding-top: 60px; /* Ajusta el padding para un header más compacto */
+    height: auto; /* Permite que el body tenga scroll vertical */
+    overflow: auto; /* Permite el scroll general */
+  }
+
+  header {
+    height: 60px; /* Header más compacto */
+    padding: 10px 20px;
+  }
+
+  .logo {
+    font-size: 22px; /* Tamaño de logo ajustado */
+    margin-right: 15px;
+  }
+
+  .top-menu ul {
+    gap: 15px; /* Reduce el espacio entre elementos del menú */
+    overflow-x: auto; /* Habilita el scroll horizontal si los elementos no caben */
+    scrollbar-width: thin; /* Para Firefox */
+    scrollbar-color: #11535f #eaf2ff; /* Color de scrollbar */
+    width: calc(100% - 80px); /* Ajusta el ancho para dejar espacio al logo/otros */
+    padding: 0 5px;
+  }
+
+  /* Custom scrollbar para Webkit (Chrome, Safari) */
+  .top-menu ul::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .top-menu ul::-webkit-scrollbar-track {
+    background: #eaf2ff;
+    border-radius: 3px;
+  }
+
+  .top-menu ul::-webkit-scrollbar-thumb {
+    background-color: #11535f; /* Color del header */
+    border-radius: 3px;
+  }
+
+  .top-menu li a {
+    font-size: 14px; /* Tamaño de fuente más pequeño para enlaces del menú */
+    padding: 6px 12px; /* Padding ajustado */
+    white-space: nowrap; /* Evita que el texto se rompa */
+  }
+
+  main {
+    flex-direction: column; /* Apila las secciones verticalmente */
+    height: auto; /* Permite que el main crezca en altura */
+    overflow: visible; /* Muestra el contenido completo */
+    padding: 15px; /* Reduce el padding general */
+    gap: 20px;
+  }
+
+  #textoProcedimiento,
+  #graficador {
+    max-width: 100%; /* Ocupa todo el ancho disponible */
+    height: auto; /* Altura automática para el contenido */
+    padding: 15px;
+  }
+
+  #textoProcedimiento input[type="number"] {
+    width: 100%; /* Los inputs ocupan todo el ancho */
+    margin-right: 0;
+  }
+
+  #textoProcedimiento button {
+    width: 100%; /* Los botones ocupan todo el ancho */
+  }
+
+  #graficador canvas {
+    width: 100% !important; /* Asegura que el canvas se ajuste */
+    height: auto;
+  }
+
+  #sideMenu {
+    /* --- CAMBIO CLAVE AQUÍ --- */
+    width: 25%; /* El menú lateral ocupa solo el 25% del ancho de la pantalla */
+    left: -25%; /* Esconde el menú completamente, 25% fuera de la vista */
+    /* --- FIN CAMBIO CLAVE --- */
+    padding-top: 60px; /* Ajusta el padding para el header más compacto */
+    height: 100vh; /* Se asegura de que ocupe toda la altura de la vista */
+  }
+
+  #closeBtn {
+    top: 10px; /* Ajusta la posición del botón de cierre */
+    right: 10px;
+    font-size: 25px;
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas (móviles) */
+@media (max-width: 480px) {
+  .logo {
+    font-size: 18px; /* Logo más pequeño */
+    margin-right: 10px;
+  }
+
+  .top-menu ul {
+    gap: 10px; /* Reduce aún más el espacio */
+    width: calc(100% - 60px); /* Ajusta el ancho para el logo más pequeño */
+    padding: 0 2px;
+  }
+
+  .top-menu li a {
+    font-size: 11px; /* Fuentes más pequeñas */
+    padding: 4px 8px;
+  }
+
+  main {
+    padding: 10px; /* Padding aún más reducido */
+    gap: 15px;
+  }
+
+  #textoProcedimiento,
+  #graficador {
+    padding: 10px;
+  }
+
+  #output {
+    font-size: 12px; /* Tamaño de fuente más pequeño para el output */
+  }
+
+  #sideMenu {
+    /* No se necesita redefinir width/left aquí a menos que quieras otro porcentaje */
+    /* Mantendrá el 25% del ancho de la pantalla actual de la media query superior */
+  }
+}

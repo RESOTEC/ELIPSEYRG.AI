@@ -1,0 +1,187 @@
+/* Estilos generales */
+body, html {
+  margin: 0;
+  padding: 0;
+  height: 100%;
+  background-color: rgb(3, 3, 34);
+  background-size: cover;
+  background-position: center;
+  font-family: sans-serif;
+  color: white;
+  box-sizing: border-box;
+}
+
+/* Título principal sin fondo */
+header {
+  width: 100%;
+  text-align: center;
+  padding: 20px 0;
+  position: fixed;
+  top: 0;
+  left: 0;
+  z-index: 100;
+  background: none;
+}
+
+.titulo, .subtitulo {
+  text-shadow: 2px 2px 4px rgba(0,0,0,0.5);
+  transition: text-shadow 0.3s, color 0.3s;
+  color: white;
+  cursor: default;
+}
+
+.titulo:hover,
+.subtitulo:hover {
+  text-shadow: 0 0 10px white, 0 0 20px white;
+}
+
+.titulo {
+  font-size: 4rem;
+  margin: 0;
+}
+
+.subtitulo {
+  font-size: 1.5rem;
+  margin: 10px 0;
+  text-align: center;
+}
+
+/* Contenedor de todos los bloques */
+.contenedor {
+  display: flex;
+  flex-wrap: wrap;
+  width: 100%;
+  height: 100vh;
+  padding-top: 120px; /* para que no quede debajo del header */
+  box-sizing: border-box;
+}
+
+/* Cada div tipo libro sin fondo ni contorno */
+.libro {
+  width: 50%;
+  height: 50%;
+  display: flex;
+  flex-direction: column;
+  justify-content: start;
+  align-items: center;
+  padding: 10px;
+  box-sizing: border-box;
+  border: none;
+  background: none;
+  box-shadow: none;
+}
+
+/* Contenedor horizontal para los videos */
+.videos {
+  display: flex;
+  justify-content: center;
+  gap: 10px;
+  width: 100%;
+  flex-grow: 1;
+  align-items: center;
+}
+
+video {
+  width: 45%;
+  height: auto;
+  border: 2px solid transparent;
+  transition: border 0.3s, box-shadow 0.3s;
+  cursor: pointer;
+}
+
+/* Contorno que brilla blanco al hacer hover, focus o reproducirse */
+video:hover,
+video:focus,
+video.playing { /* Nueva clase para cuando el video se está reproduciendo */
+  outline: none;
+  border: 2px solid white;
+  box-shadow: 0 0 8px 3px white;
+}
+
+/* --- */
+
+@media (max-width: 768px) {
+  header {
+    padding: 15px 0; /* Menos padding en el header */
+  }
+
+  .titulo {
+    font-size: 2.5rem; /* Tamaño de título más pequeño */
+  }
+
+  .subtitulo {
+    font-size: 1.2rem; /* Tamaño de subtítulo más pequeño */
+    margin: 5px 0;
+  }
+
+  .contenedor {
+    padding-top: 90px; /* Ajusta el padding para el header más pequeño */
+    flex-direction: column; /* Apila los libros verticalmente */
+    height: auto; /* Permite que el contenedor crezca en altura */
+  }
+
+  .libro {
+    width: 100%; /* Cada libro ocupa todo el ancho */
+    height: auto; /* Altura automática */
+    padding: 8px; /* Menos padding */
+    margin-bottom: 20px; /* Espacio entre libros */
+  }
+
+  .videos {
+    flex-direction: column; /* Apila los videos verticalmente */
+    gap: 15px; /* Más espacio entre videos apilados */
+    width: 90%; /* Ajusta el ancho para dar un pequeño margen */
+    margin: 0 auto; /* Centra el contenedor de videos */
+  }
+
+  video {
+    width: 100%; /* Cada video ocupa todo el ancho disponible en su contenedor */
+    max-width: 350px; /* Limita el ancho máximo para evitar videos gigantes en tabletas */
+    border-width: 1px; /* Borde más delgado en pantallas pequeñas */
+  }
+
+  /* Ajustes para el hover/focus en pantallas pequeñas (opcional, pero útil) */
+  video:hover,
+  video:focus,
+  video.playing {
+    box-shadow: 0 0 6px 2px white; /* Sombra un poco menos intensa */
+  }
+}
+
+@media (max-width: 480px) {
+  header {
+    padding: 10px 0;
+  }
+
+  .titulo {
+    font-size: 1.8rem; /* Título aún más pequeño para móviles */
+  }
+
+  .subtitulo {
+    font-size: 1rem; /* Subtítulo aún más pequeño */
+  }
+
+  .contenedor {
+    padding-top: 70px; /* Más ajuste de padding */
+  }
+
+  .libro {
+    padding: 5px;
+    margin-bottom: 15px;
+  }
+
+  .videos {
+    gap: 10px;
+    width: 95%;
+  }
+
+  video {
+    max-width: 300px; /* Limita aún más el ancho del video en móviles */
+  }
+
+  video:hover,
+  video:focus,
+  video.playing {
+    box-shadow: 0 0 5px 1px white; /* Sombra más sutil */
+  }
+}

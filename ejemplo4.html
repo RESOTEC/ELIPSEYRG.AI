@@ -1,0 +1,196 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elipses – Transformaciones Geométricas</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f9f9f9;
+    }
+
+    .contenedor {
+      border: 3px solid #700c0c; /* marco marrón oscuro */
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      color: #700c0c;
+    }
+
+    .ejemplo {
+      margin-top: 30px;
+      padding: 15px;
+      border: 2px dashed #700c0c;
+      border-radius: 10px;
+    }
+
+    .titulo-ejemplo {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #700c0c;
+    }
+
+    .pasos {
+      white-space: pre-line;
+      padding: 10px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    canvas {
+      background: #ffffff;
+      border: 1px solid #ccc;
+      display: block;
+      margin: 20px auto;
+    }
+    @media (max-width: 480px) {
+  body {
+    margin: 10px; /* Margen aún más reducido para móviles */
+  }
+
+  .contenedor {
+    padding: 10px; /* Más reducción de padding */
+  }
+
+  h1 {
+    font-size: 1.6em; /* Título aún más pequeño para pantallas muy pequeñas */
+  }
+
+  .titulo-ejemplo {
+    font-size: 16px; /* Título de ejemplo más pequeño */
+  }
+
+  .pasos {
+    font-size: 13px; /* Tamaño de fuente más pequeño para los pasos */
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Resolución de Elipses - Transformaciones Geométricas</h1>
+
+    <div class="ejemplo">
+      <div class="titulo-ejemplo">Ejemplo 1: Elipse con centro trasladado</div>
+      <div class="pasos" id="pasos1"></div>
+      <canvas id="grafica1" width="400" height="300"></canvas>
+    </div>
+
+    <div class="ejemplo">
+      <div class="titulo-ejemplo">Ejemplo 2: Elipse rotada 45°</div>
+      <div class="pasos" id="pasos2"></div>
+      <canvas id="grafica2" width="400" height="300"></canvas>
+    </div>
+  </div>
+
+  <script>
+    function mostrarPasos() {
+      const pasos1 = `
+EJEMPLO 1 – Elipse: (x - 3)²/9 + (y + 2)²/4 = 1
+
+Paso 1: Identificamos que se trata de una elipse canónica trasladada.
+Centro: (3, -2), a² = 9, b² = 4 ⇒ a = 3, b = 2
+
+Paso 2: Aplicamos transformación de traslación:
+   x = X + 3
+   y = Y - 2
+   Sustituyendo en la forma canónica estándar:
+   X²/9 + Y²/4 = 1
+
+Paso 3: Esto muestra que, en el sistema trasladado, es una elipse centrada en el origen.
+
+Paso 4: Se interpreta como una elipse horizontal (porque a² > b²),
+por tanto, su eje mayor es horizontal.
+
+Paso 5: Dibujamos con simetría respecto al nuevo centro (3, -2).
+
+Paso 6: Los vértices están a ±a en x y ±b en y:
+   Vértices mayores: (0 ± 3, 0) → en coordenadas originales: (3 ± 3, -2)
+   Vértices menores: (0, 0 ± 2) → en originales: (3, -2 ± 2)`;
+
+      const pasos2 = `
+EJEMPLO 2 – Elipse rotada: x² + y² + 2xy = 4
+
+Paso 1: Reconocemos que hay un término cruzado (2xy), lo cual indica rotación.
+
+Paso 2: Aplicamos rotación de -45° para eliminar el término xy:
+   x = (X - Y)/√2
+   y = (X + Y)/√2
+
+Paso 3: Sustituimos en la ecuación original:
+   ((X - Y)/√2)² + ((X + Y)/√2)² + 2((X - Y)/√2)((X + Y)/√2) = 4
+
+Paso 4: Expandimos cada término:
+   ((X - Y)² + (X + Y)² + 2(X² - Y²)) / 2 = 4
+   → (X² - 2XY + Y² + X² + 2XY + Y² + 2X² - 2Y²) / 2 = 4
+   → (4X² + 2Y²) / 2 = 4 ⇒ 2X² + Y² = 4
+
+Paso 5: Forma canónica después de rotación:
+   X²/2 + Y²/4 = 1 ⇒ Elipse con eje mayor vertical
+
+Paso 6: Centro en el origen en coordenadas rotadas. Volvemos al sistema original.
+
+Paso 7: Dibujamos una elipse rotada 45° en sentido antihorario respecto al origen.`;
+
+      document.getElementById("pasos1").innerText = pasos1;
+      document.getElementById("pasos2").innerText = pasos2;
+    }
+
+    function dibujarElipse(canvasId, cx, cy, a, b, rot = 0) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext("2d");
+
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.scale(1, -1);
+
+      // Ejes
+      ctx.strokeStyle = "#ccc";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(-canvas.width / 2, 0);
+      ctx.lineTo(canvas.width / 2, 0);
+      ctx.moveTo(0, -canvas.height / 2);
+      ctx.lineTo(0, canvas.height / 2);
+      ctx.stroke();
+
+      const escala = 20;
+
+      ctx.strokeStyle = "#700c0c";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let t = 0; t <= 2 * Math.PI; t += 0.01) {
+        let x = a * Math.cos(t);
+        let y = b * Math.sin(t);
+        // Rotación si se indica
+        if (rot !== 0) {
+          const xRot = x * Math.cos(rot) - y * Math.sin(rot);
+          const yRot = x * Math.sin(rot) + y * Math.cos(rot);
+          x = xRot;
+          y = yRot;
+        }
+        ctx.lineTo((x + cx) * escala, (y + cy) * escala);
+      }
+      ctx.stroke();
+
+      // Centro
+      ctx.fillStyle = "red";
+      ctx.beginPath();
+      ctx.arc(cx * escala, cy * escala, 3, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
+    mostrarPasos();
+    dibujarElipse("grafica1", 3, -2, 3, 2);           // elipse trasladada
+    dibujarElipse("grafica2", 0, 0, Math.sqrt(2), 2, Math.PI / 4); // elipse rotada 45°
+  </script>
+</body>
+</html>

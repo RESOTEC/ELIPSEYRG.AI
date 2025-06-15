@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Método Punto Medio</title>
+  <link rel="stylesheet" href="forma1.css" />
+</head>
+<body>
+
+  <!-- Encabezado con logo y menú -->
+  <header>
+    <div class="logo" id="menuToggle">&#x22EE;</div>
+    <nav class="top-menu">
+      <ul>
+        <li><a href="forma1.html" class="menu-item active">Punto medio</a></li>
+        <li><a href="forma2.html" class="menu-item">Ecuación canónica</a></li>
+        <li><a href="forma3.html" class="menu-item">Completar cuadrados</a></li>
+        <li><a href="forma4.html" class="menu-item">Transformaciones geométricas</a></li>
+        <li><a href="forma5.html" class="menu-item">Gráfico</a></li>
+      </ul>
+    </nav>
+  </header>
+
+  <aside id="sideMenu" style="left: -260px; position: fixed; top: 0; width: 260px; height: 100%; transition: left 0.3s ease;">
+
+    <button id="closeBtn">&times;</button>
+    <ul>
+       <li><a href="videos.html">Videos</a></li>
+      <li><a href="ejemplo1.html">Ejemplos</a></li>
+      <li><a href="e1.html">Información</a></li>
+    </ul>
+  </aside>
+
+  <main>
+    <div id="textoProcedimiento">
+      <h2>Resolución paso a paso</h2>
+      <p>Introduce los semiejes de la elipse (a, b):</p>
+      <input type="number" id="a" placeholder="a (semieje mayor)" min="1" />
+      <input type="number" id="b" placeholder="b (semieje menor)" min="1" />
+      <button onclick="resolverElipse()">Resolver</button>
+      <pre id="output"></pre>
+    </div>
+
+    <div id="graficador">
+      <h2>Gráfica de la Elipse</h2>
+      <canvas id="canvas" width="400" height="400" style="border:1px solid #ccc;"></canvas>
+    </div>
+  </main>
+
+ <script src="forma1.js"></script>
+
+  <script>
+    document.getElementById("menuToggle").onclick = () => {
+      document.getElementById("sideMenu").style.left = "0";
+    };
+
+    document.getElementById("closeBtn").onclick = () => {
+      document.getElementById("sideMenu").style.left = "-260px";
+    };
+  </script>
+
+</body>
+</html>

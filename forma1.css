@@ -1,0 +1,345 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+/* Variable para altura del header */
+:root {
+  --header-height: 80px;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding-top: var(--header-height); /* espacio para header fijo */
+}
+
+/* Encabezado fijo */
+header {
+  background-color: #700c57;
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: var(--header-height);
+  z-index: 999;
+}
+
+/* Logo */
+.logo {
+  font-size: 28px;
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+/* Menú superior */
+.top-menu ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+
+.top-menu li a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+  width: auto;
+  font-size: 16px;
+}
+
+.top-menu li a:hover,
+.top-menu li a.active {
+  border-color: white;
+  color: white;
+  background-color: transparent;
+  box-shadow: 0 0 10px white;
+}
+
+/* Menú lateral fijo */
+#sideMenu {
+  width: 250px;
+  height: 100%;
+  background-color: #700c57;
+  color: white;
+  position: fixed;
+  top: 0;
+  left: -260px;
+  transition: left 0.3s ease;
+  padding-top: var(--header-height);
+  z-index: 1000;
+}
+
+#sideMenu ul {
+  list-style: none;
+  padding: 0 20px;
+}
+
+#sideMenu ul li {
+  margin: 15px 0;
+}
+
+#sideMenu ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  display: block;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+
+#sideMenu ul li a:hover {
+  border-color: white;
+  color: white;
+  background-color: transparent;
+  box-shadow: 0 0 10px white;
+}
+
+/* Botón cerrar */
+#closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Main: contenedor principal */
+main {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  padding: 20px;
+  background: #fff;
+  box-sizing: border-box;
+}
+
+/* Sección procedimiento */
+#textoProcedimiento {
+  flex: 1 1 45%;
+  max-width: 45%;
+  font-family: monospace;
+  white-space: pre-wrap;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-sizing: border-box;
+  overflow-y: auto;
+  border: 1px solid #ddd;
+  color: #333;
+}
+
+#textoProcedimiento input[type="number"] {
+  width: 45%;
+  padding: 8px;
+  margin: 5px 5px 15px 0;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#textoProcedimiento button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #700c57;
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+#textoProcedimiento button:hover {
+  background-color: #3f0530;
+}
+
+#output {
+  margin-top: 15px;
+  max-height: 400px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Sección gráfica */
+#graficador {
+  flex: 1 1 45%;
+  max-width: 45%;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  box-sizing: border-box;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#graficador canvas {
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 0 5px #d0d0d0;
+  border-radius: 4px;
+}
+
+/* Scrollbars personalizados */
+#output::-webkit-scrollbar,
+#sideMenu::-webkit-scrollbar {
+  width: 6px;
+}
+
+#output::-webkit-scrollbar-thumb,
+#sideMenu::-webkit-scrollbar-thumb {
+  background-color: #005bb5;
+  border-radius: 3px;
+}
+
+#output::-webkit-scrollbar-track,
+#sideMenu::-webkit-scrollbar-track {
+  background-color: #eaf2ff;
+}
+
+/* ======================= RESPONSIVE DESIGN ======================= */
+/* Para pantallas medianas y pequeñas */
+@media (max-width: 768px) {
+  header {
+    flex-direction: row;      
+    align-items: center;
+    height: 60px;             
+    padding: 10px 20px;
+  }
+
+  .logo {
+    font-size: 18px;
+    margin-right: 10px;
+    margin-bottom: 0;        
+  }
+
+  .top-menu ul {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto;
+    scrollbar-width: thin;
+    scrollbar-color: #700c57;
+    width: calc(100% - 100px);
+    margin: 0;
+    padding: 0 5px;
+  }
+
+  .top-menu ul::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .top-menu ul::-webkit-scrollbar-track {
+    background: #eaf2ff;
+    border-radius: 3px;
+  }
+
+  .top-menu ul::-webkit-scrollbar-thumb {
+    background-color:  #700c57;
+    border-radius: 3px;
+  }
+
+  .top-menu li {
+    flex: 0 0 auto;
+  }
+
+  .top-menu li a {
+    font-size: 12px;
+    padding: 4px 8px;
+    white-space: nowrap;
+    border: 2px solid transparent;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .top-menu li a:hover,
+  .top-menu li a.active {
+    border-color: white;
+    color: white;
+    background-color: transparent;
+    box-shadow: 0 0 10px white;
+  }
+
+  main {
+    flex-direction: column;
+    padding: 15px;
+    gap: 20px;
+  }
+
+  #textoProcedimiento,
+  #graficador {
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  #textoProcedimiento input[type="number"] {
+    width: 100%;
+  }
+
+  #textoProcedimiento button {
+    width: 100%;
+  }
+
+  #graficador canvas {
+    width: 100% !important;
+    height: auto;
+  }
+
+  #sideMenu {
+    width: 100%;
+    left: -100%;
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas */
+@media (max-width: 480px) {
+  .logo {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+
+  .top-menu ul {
+    width: calc(100% - 90px);
+    gap: 6px;
+    padding: 0 4px;
+  }
+
+  .top-menu li a {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+
+  /* Scrollbar igual para pantallas muy pequeñas */
+  .top-menu ul::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  .top-menu ul::-webkit-scrollbar-track {
+    background: #eaf2ff;
+    border-radius: 3px;
+  }
+
+  .top-menu ul::-webkit-scrollbar-thumb {
+    background-color: #700c57;
+    border-radius: 3px;
+  }
+}

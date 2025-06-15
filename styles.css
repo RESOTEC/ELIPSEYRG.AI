@@ -1,0 +1,44 @@
+body {
+    height: 100vh;
+    margin: 0;
+    padding: 0;
+    display: flex;
+    flex-direction: column; 
+    justify-content: center; 
+    align-items: center; 
+
+    background-image: url('multimedia/logo.png'); 
+    background-size: cover; 
+    background-position: center; 
+    background-repeat: no-repeat;
+}
+
+#startBtn {
+    margin-top: 350px; 
+    padding: 15px 40px;
+    font-size: 1.5rem;
+    color: white;
+    background-color: #007bff;
+    border: none;
+    border-radius: 8px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+    box-sizing: border-box;
+}
+/* Media Queries para hacer el botón más responsive */
+@media (max-width: 768px) {
+    #startBtn {
+        margin-top: 250px; /* Reduce el margen superior en pantallas medianas */
+        padding: 12px 30px; /* Reduce el padding */
+        font-size: 1.2rem; /* Reduce el tamaño de la fuente */
+    }
+}
+
+@media (max-width: 480px) {
+    #startBtn {
+        margin-top: 150px; /* Reduce aún más el margen superior en pantallas pequeñas */
+        padding: 10px 20px; /* Reduce aún más el padding */
+        font-size: 1rem; /* Reduce el tamaño de la fuente */
+        width: 90%; /* Ocupa un poco más de ancho en pantallas muy pequeñas */
+    }
+}

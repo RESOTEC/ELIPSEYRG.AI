@@ -1,0 +1,369 @@
+/* Reset básico */
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+body {
+  font-family: Arial, sans-serif;
+  background-color: #f4f4f4;
+  padding-top: 80px; /* espacio para header fijo */
+}
+
+/* Encabezado fijo */
+header {
+  background-color: #346b0f; /* Color de tu código original */
+  color: white;
+  display: flex;
+  align-items: center;
+  padding: 20px 30px;
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 80px;
+  z-index: 999;
+}
+
+/* Logo */
+.logo {
+  font-size: 28px;
+  cursor: pointer;
+  margin-right: 30px;
+}
+
+/* Menú superior */
+.top-menu ul {
+  list-style: none;
+  display: flex;
+  gap: 25px;
+}
+.top-menu li a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+.top-menu li a:hover,
+.top-menu li a.active {
+  border-color: white;
+  color: white;
+  background-color: transparent;
+  box-shadow: 0 0 10px white;
+}
+
+/* Menú lateral fijo */
+#sideMenu {
+  width: 250px;
+  height: 100%;
+  background-color: #346b0f; /* Color de tu código original */
+  color: white;
+  position: fixed;
+  top: 0;
+  left: -260px; /* Se esconde 10px más que su ancho */
+  transition: left 0.3s ease;
+  padding-top: 80px;
+  z-index: 1000;
+  overflow-y: auto; /* Permite scroll si el contenido es largo */
+}
+#sideMenu ul {
+  list-style: none;
+  padding: 0 20px;
+}
+#sideMenu ul li {
+  margin: 15px 0;
+}
+#sideMenu ul li a {
+  text-decoration: none;
+  color: white;
+  padding: 10px 20px;
+  display: block;
+  border: 2px solid transparent;
+  border-radius: 6px;
+  transition: all 0.3s ease;
+}
+#sideMenu ul li a:hover {
+  border-color: white;
+  color: white;
+  background-color: transparent;
+  box-shadow: 0 0 10px white;
+}
+
+/* Botón cerrar */
+#closeBtn {
+  position: absolute;
+  top: 15px;
+  right: 15px;
+  background: none;
+  border: none;
+  font-size: 30px;
+  color: white;
+  cursor: pointer;
+}
+
+/* Main: contenido principal con layout */
+main {
+  display: flex;
+  gap: 40px;
+  padding: 20px;
+  box-sizing: border-box;
+  height: calc(100vh - 80px);
+  overflow-y: auto;
+  background: white;
+}
+
+/* Explicación lado izquierdo */
+#explicacion {
+  flex: 1;
+  max-width: 45%;
+  font-family: monospace;
+  white-space: pre-wrap;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  color: #333;
+  overflow-y: auto;
+}
+
+#explicacion input[type="number"] {
+  width: 45%;
+  padding: 8px;
+  margin: 5px 5px 15px 0;
+  font-size: 16px;
+  border-radius: 4px;
+  border: 1px solid #ccc;
+  box-sizing: border-box;
+}
+
+#explicacion button {
+  padding: 10px 20px;
+  font-size: 16px;
+  background-color: #346b0f; /* Color de tu código original */
+  border: none;
+  color: white;
+  border-radius: 5px;
+  cursor: pointer;
+  user-select: none;
+  transition: background-color 0.3s ease;
+}
+
+#explicacion button:hover {
+  background-color: #1d4602; /* Color de tu código original */
+}
+
+#output {
+  margin-top: 15px;
+  max-height: 400px;
+  overflow-y: auto;
+  white-space: pre-wrap;
+  font-size: 14px;
+  color: #333;
+}
+
+/* Gráfica lado derecho */
+#grafico {
+  flex: 1;
+  max-width: 45%;
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 20px;
+  border: 1px solid #ddd;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+#grafico canvas {
+  background-color: white;
+  border: 1px solid #ccc;
+  box-shadow: inset 0 0 5px #d0d0d0;
+  border-radius: 4px;
+  max-width: 100%; /* Asegura que el canvas sea responsive por defecto */
+  height: auto; /* Mantiene la proporción del canvas */
+}
+
+/* Scrollbar custom para output y menú lateral */
+#output::-webkit-scrollbar,
+#sideMenu::-webkit-scrollbar {
+  width: 6px;
+}
+
+#output::-webkit-scrollbar-thumb,
+#sideMenu::-webkit-scrollbar-thumb {
+  background-color: #005bb5;
+  border-radius: 3px;
+}
+
+#output::-webkit-scrollbar-track,
+#sideMenu::-webkit-scrollbar-track {
+  background-color: #eaf2ff;
+}
+
+
+/* Para pantallas medianas y pequeñas */
+@media (max-width: 768px) {
+  body {
+    padding-top: 60px; /* Ajusta el padding para el header más pequeño */
+  }
+
+  header {
+    flex-direction: row;
+    align-items: center;
+    height: 60px; /* Header más compacto */
+    padding: 10px 20px;
+  }
+
+  .logo {
+    font-size: 18px;
+    margin-right: 10px;
+    margin-bottom: 0;
+  }
+
+  .top-menu ul {
+    display: flex;
+    flex-wrap: nowrap;
+    gap: 8px;
+    overflow-x: auto; /* Permite scroll horizontal si los elementos no caben */
+    scrollbar-width: thin; /* Para Firefox */
+    scrollbar-color: #346b0f #eaf2ff; /* Color de scrollbar para Firefox */
+    width: calc(100% - 100px); /* Ajusta el ancho para dejar espacio al logo/otros */
+    margin: 0;
+    padding: 0 5px;
+  }
+
+  /* Custom scrollbar para Webkit (Chrome, Safari) */
+  .top-menu ul::-webkit-scrollbar {
+    height: 6px;
+  }
+
+  .top-menu ul::-webkit-scrollbar-track {
+    background: #eaf2ff;
+    border-radius: 3px;
+  }
+
+  .top-menu ul::-webkit-scrollbar-thumb {
+    background-color: #346b0f; /* Color del encabezado */
+    border-radius: 3px;
+  }
+
+  .top-menu li {
+    flex: 0 0 auto; /* Asegura que los ítems no se encojan */
+  }
+
+  .top-menu li a {
+    font-size: 12px;
+    padding: 4px 8px;
+    white-space: nowrap; /* Evita que el texto de los enlaces se rompa */
+    border: 2px solid transparent;
+    border-radius: 6px;
+    transition: all 0.3s ease;
+    display: inline-block;
+  }
+
+  .top-menu li a:hover,
+  .top-menu li a.active {
+    border-color: white;
+    color: white;
+    background-color: transparent;
+    box-shadow: 0 0 10px white;
+  }
+
+  main {
+    flex-direction: column; /* Apila las secciones verticalmente */
+    padding: 15px;
+    gap: 20px;
+    height: auto; /* Permite que el main crezca en altura */
+    overflow-y: visible; /* O visible, ya no es un contenedor fijo */
+  }
+
+  #explicacion, /* Aplicar a #explicacion */
+  #grafico { /* Aplicar a #grafico */
+    width: 100%;
+    max-width: 100%;
+    padding: 15px;
+  }
+
+  #explicacion input[type="number"] {
+    width: 100%; /* Los inputs ocupan todo el ancho disponible */
+    margin-right: 0; /* Elimina el margen a la derecha */
+  }
+
+  #explicacion button {
+    width: 100%; /* Los botones ocupan todo el ancho disponible */
+  }
+
+  #grafico canvas {
+    width: 100% !important; /* Asegura que el canvas se adapte al 100% */
+    height: auto;
+  }
+
+  #sideMenu {
+    /* --- CAMBIO CLAVE AQUÍ --- */
+    width: 25%; /* ¡El menú lateral ocupa el 25% del ancho de la pantalla! */
+    left: -25%; /* Lo esconde completamente, 25% fuera de la vista */
+    /* --- FIN CAMBIO CLAVE --- */
+    padding-top: 60px; /* Ajusta el padding para el header más pequeño */
+  }
+
+  #closeBtn {
+    top: 10px; /* Ajusta la posición del botón de cierre */
+    right: 10px;
+    font-size: 25px;
+  }
+}
+
+/* Ajustes para pantallas muy pequeñas (móviles) */
+@media (max-width: 480px) {
+  .logo {
+    font-size: 16px;
+    margin-right: 8px;
+  }
+
+  .top-menu ul {
+    width: calc(100% - 90px); /* Ajusta el ancho para el logo más pequeño */
+    gap: 6px;
+    padding: 0 4px;
+  }
+
+  .top-menu li a {
+    font-size: 11px;
+    padding: 3px 6px;
+  }
+
+  /* Scrollbar igual para pantallas muy pequeñas */
+  .top-menu ul::-webkit-scrollbar {
+    height: 5px;
+  }
+
+  .top-menu ul::-webkit-scrollbar-track {
+    background: #eaf2ff;
+    border-radius: 3px;
+  }
+
+  .top-menu ul::-webkit-scrollbar-thumb {
+    background-color: #346b0f; /* Color del encabezado */
+    border-radius: 3px;
+  }
+
+  main {
+    padding: 10px;
+    gap: 15px;
+  }
+
+  #explicacion,
+  #grafico {
+    padding: 10px;
+  }
+
+  #output {
+    font-size: 13px;
+  }
+
+  #sideMenu {
+    /* Mantendrá el 25% del ancho de la pantalla actual de la media query superior */
+    /* La posición 'left' se manejará por JavaScript al abrirlo */
+  }
+}

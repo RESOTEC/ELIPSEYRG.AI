@@ -1,0 +1,296 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>La Elipse</title> <!-- Título del documento cambiado a "La Elipse" -->
+    <!-- Carga la fuente Inter de Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        /* Estilos generales del cuerpo de la página */
+        body {
+            font-family: 'Inter', Arial, sans-serif; /* Fuente 'Inter' */
+            margin: 0; /* Elimina el margen predeterminado del cuerpo */
+            background: black; /* Fondo negro como se solicitó */
+            color: blue; /* Color de texto predeterminado azul */
+            min-height: 100vh; /* Altura mínima del 100% del viewport */
+            /* Se eliminó el padding del body para evitar el desbordamiento horizontal */
+            box-sizing: border-box; /* Incluye el padding en el tamaño total del elemento */
+            overflow-x: hidden; /* Asegura que no haya scroll horizontal no deseado */
+        }
+
+        /* Estilo del contenedor principal del contenido */
+        .contenedor {
+            border: 3px solid blue; /* Contorno azul como se solicitó */
+            border-radius: 10px; /* Bordes redondeados */
+            padding: 30px; /* Espaciado interno */
+            background-color: #0a0a2a; /* Fondo azul muy oscuro para el contenedor */
+            /* Ajuste de max-width y margin para responsividad y eliminar barra de desplazamiento */
+            max-width: 96%; /* Ancho máximo, dejando un margen en los lados */
+            width: auto; /* Ancho automático para adaptarse al contenido y al max-width */
+            margin: 20px auto; /* Margen superior/inferior de 20px y centrado horizontal */
+            box-shadow: 0 0 20px rgba(0, 0, 255, 0.5); /* Sombra azul que resalta el contorno */
+            /* Efecto de "cristal" */
+            backdrop-filter: blur(5px);
+            -webkit-backdrop-filter: blur(5px);
+            background-color: rgba(10, 10, 42, 0.7); /* Fondo semi-transparente */
+        }
+
+        /* Estilo para el título principal H1 */
+        h1 {
+            text-align: center; /* Centra el texto */
+            color: blue; /* Color azul */
+            margin-bottom: 25px; /* Margen inferior */
+            text-shadow: 0 0 5px blue; /* Pequeña sombra para el título */
+            font-size: 32px; /* Tamaño de fuente del título */
+        }
+
+        /* Estilo para la sección de ejemplo (contenedor de la información principal) */
+        .ejemplo {
+            margin-top: 30px; /* Margen superior */
+            padding: 20px; /* Espaciado interno */
+            border: 2px dashed blue; /* Borde punteado azul */
+            border-radius: 10px; /* Bordes redondeados */
+            background-color: #0f0f3f; /* Fondo un poco más claro que el contenedor principal */
+            /* Efecto de "cristal" */
+            backdrop-filter: blur(3px);
+            -webkit-backdrop-filter: blur(3px);
+            background-color: rgba(15, 15, 63, 0.7); /* Fondo semi-transparente */
+        }
+
+        /* Estilo para el título dentro de la sección de ejemplo */
+        .titulo-ejemplo {
+            font-size: 22px; /* Tamaño de fuente */
+            font-weight: bold; /* Negrita */
+            margin-bottom: 15px; /* Margen inferior */
+            color: blue; /* Color azul */
+            text-shadow: 0 0 3px blue; /* Pequeña sombra */
+        }
+
+        /* Estilo para el contenedor de los pasos/párrafos de información */
+        .pasos {
+            white-space: pre-line; /* Mantiene saltos de línea y espacios */
+            padding: 10px; /* Espaciado interno */
+            font-size: 16px; /* Tamaño de fuente */
+            line-height: 1.8; /* Altura de línea para mejor legibilidad */
+            color: blue; /* Color de texto predeterminado para los párrafos */
+            text-align: justify; /* Justifica el texto como se solicitó */
+        }
+
+        /* Estilo para cada párrafo dentro de '.pasos' */
+        .pasos p {
+            color: blue; /* Asegura que cada párrafo tenga el color azul inicial */
+            transition: color 0.3s ease-in-out, text-shadow 0.3s ease-in-out; /* Transición suave para el efecto hover */
+            margin-bottom: 1em; /* Espacio entre párrafos */
+        }
+
+        /* Efecto hover para los párrafos: brillo blanco */
+        .pasos p:hover {
+            color: white; /* El texto se vuelve blanco */
+            text-shadow: 0 0 8px white, 0 0 15px white, 0 0 20px white; /* Efecto de brillo blanco */
+            cursor: pointer; /* Cambia el cursor para indicar interactividad */
+        }
+
+        /* Estilo para el elemento canvas */
+        canvas {
+            background: #000000; /* Fondo negro para el canvas */
+            border: 1px solid blue; /* Borde azul para el canvas */
+            display: block; /* Ocupa su propia línea */
+            margin: 30px auto; /* Margen superior/inferior y centrado horizontal */
+            width: 90%; /* Ancho responsivo */
+            max-width: 600px; /* Ancho máximo */
+            height: 300px; /* Altura fija */
+            border-radius: 10px; /* Bordes redondeados */
+        }
+
+        /* Medias queries para diseño responsivo en dispositivos más pequeños */
+        @media (max-width: 768px) {
+            .contenedor {
+                padding: 20px; /* Reduce el padding en pantallas medianas */
+                margin: 15px auto; /* Ajusta el margen en pantallas medianas */
+                max-width: 98%; /* Permite que ocupe un poco más en pantallas medianas */
+            }
+            h1 {
+                font-size: 28px; /* Reduce el tamaño del título principal */
+            }
+            .titulo-ejemplo {
+                font-size: 20px; /* Reduce el tamaño del título de ejemplo */
+            }
+            .pasos {
+                font-size: 15px; /* Reduce el tamaño de la fuente de los párrafos */
+                line-height: 1.6; /* Ajusta la altura de línea */
+            }
+        }
+
+        @media (max-width: 480px) {
+            .contenedor {
+                padding: 15px; /* Reduce aún más el padding del contenedor en pantallas pequeñas */
+                margin: 10px auto; /* Ajusta el margen en pantallas pequeñas */
+                max-width: 99%; /* Permite que ocupe casi todo el ancho */
+            }
+            h1 {
+                font-size: 24px; /* Reduce el tamaño del título principal en pantallas pequeñas */
+            }
+            .titulo-ejemplo {
+                font-size: 18px; /* Reduce el tamaño del título de ejemplo en pantallas pequeñas */
+            }
+            .pasos {
+                font-size: 14px; /* Reduce el tamaño de la fuente de los párrafos en pantallas pequeñas */
+                line-height: 1.5; /* Ajusta la altura de línea */
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="contenedor">
+        <h1>La Elipse: Geometría, Historia y Aplicaciones</h1>
+
+        <div class="ejemplo">
+            <div class="titulo-ejemplo">Definición, Historia, Fórmulas y Aplicaciones de la Elipse</div>
+            <div class="pasos">
+                <p>
+                    La <b>elipse</b> es una de las curvas cónicas más fascinantes y omnipresentes en la naturaleza y la ingeniería. Geométricamente, se define como el <b>lugar geométrico de todos los puntos de un plano para los cuales la suma de las distancias a dos puntos fijos, llamados focos ($F_1$ y $F_2$), es una constante</b>. Esta constante es igual a la longitud del eje mayor de la elipse. Visualmente, una elipse es una curva cerrada y plana que se asemeja a un círculo "estirado" o "aplanado". Su simetría y propiedades únicas la hacen fundamental en diversas áreas del conocimiento.
+                </p>
+                <p>
+                    Otra forma de entender la elipse es como la intersección de un cono doble con un plano que lo corta de manera oblicua, sin pasar por la base y sin ser paralelo a una de sus generatrices. Esta es la definición original de "sección cónica" que da origen a su nombre y clasificaciones. La riqueza de sus propiedades surge directamente de esta perspectiva tridimensional.
+                </p>
+                <p>
+                    <h3>Orígenes e Historia Antigua</h3>
+                    El estudio de las secciones cónicas, que incluyen la elipse, la parábola y la hipérbola, se remonta a la <b>Antigua Grecia</b>, un período de florecimiento intelectual en matemáticas y filosofía. Se atribuye a <b>Menecmo</b> (alrededor del 380-320 a.C.), alumno de Eudoxo y tutor de Alejandro Magno, el descubrimiento de estas curvas. Menecmo las empleó en su intento de resolver uno de los tres famosos problemas de la antigüedad griega: la duplicación del cubo (construir un cubo con el doble de volumen que uno dado). Aunque no logró resolver el problema con regla y compás, sus investigaciones sentaron las bases para el estudio de las cónicas.
+                </p>
+                <p>
+                    <b>Euclides de Alejandría</b> (siglo III a.C.), en su obra "Elementos", también abordó las cónicas, aunque su enfoque no fue tan exhaustivo como el de Apolonio. Sin embargo, su trabajo ayudó a consolidar el conocimiento geométrico de la época, que serviría de base para desarrollos posteriores.
+                </p>
+                <p>
+                    El verdadero padre del estudio sistemático y exhaustivo de las cónicas es <b>Apolonio de Perge</b> (alrededor del 262-190 a.C.). En su monumental obra "Las Cónicas" (Konika), un tratado de ocho libros, Apolonio las definió como las intersecciones de un plano con un cono de dos hojas, desarrollando una teoría exhaustiva de sus propiedades. Él fue quien les dio los nombres que conocemos hoy: elipse, parábola e hipérbola. Estos nombres, según el mismo Apolonio, se derivan de términos griegos relacionados con "deficiencia" (elipse), "aplicación exacta" (parábola) y "exceso" (hipérbola), refiriéndose a las áreas de ciertos rectángulos construidos a partir de la curva, un concepto que él heredó de la geometría pitagórica y euclidiana.
+                </p>
+                <p>
+                    Durante la Edad Media, el conocimiento griego de las cónicas se mantuvo vivo principalmente en el mundo islámico, gracias a eruditos como Al-Kuhi y Omar Khayyam, quienes las utilizaron en la resolución de ecuaciones cúbicas y en el diseño de instrumentos astronómicos. No fue hasta el Renacimiento en Europa que resurgió su estudio con la traducción y reinterpretación de las obras griegas, marcando el inicio de una nueva era de descubrimientos científicos.
+                </p>
+                <p>
+                    <h3>Contribuciones Clave en la Era Moderna</h3>
+                    Una de las contribuciones más trascendentales al entendimiento de la elipse vino de <b>Johannes Kepler</b> (1571-1630), a principios del siglo XVII. Basándose en las meticulosas y voluminosas observaciones de Marte de su maestro Tycho Brahe, Kepler formuló sus famosas <b>leyes del movimiento planetario</b>. La primera de estas leyes, publicada en su "Astronomia Nova" (1609), establece que "todos los planetas se mueven alrededor del Sol en órbitas elípticas, con el Sol en uno de los focos". Esta revelación rompió con la antigua y arraigada concepción aristotélico-ptolemaica de órbitas circulares perfectas, que había dominado el pensamiento astronómico durante casi dos milenios. Este cambio de paradigma no solo revolucionó la astronomía, sino que también sentó las bases para la mecánica celeste moderna.
+                </p>
+                <p>
+                    Posteriormente, <b>Isaac Newton</b> (1642-1727), en su obra cumbre "Philosophiæ Naturalis Principia Mathematica" (1687), proporcionó la explicación física de las leyes de Kepler. Newton demostró que el movimiento elíptico de los cuerpos celestes era una consecuencia directa de su ley de la gravitación universal, donde la fuerza de gravedad entre dos cuerpos es inversamente proporcional al cuadrado de la distancia entre ellos. La capacidad de Newton para deducir las leyes de Kepler a partir de un principio físico fundamental fue un triunfo de la ciencia y consolidó la elipse como la forma canónica de las órbitas celestes.
+                </p>
+                <p>
+                    Otros matemáticos y científicos también contribuyeron significativamente. <b>René Descartes</b> (1596-1650) y <b>Pierre de Fermat</b> (1601-1665), en el siglo XVII, desarrollaron la <b>geometría analítica</b>, uniendo la geometría con el álgebra. Esta nueva herramienta permitió describir las cónicas mediante ecuaciones algebraicas, abriendo la puerta a un estudio más profundo de sus propiedades y a su aplicación en diversos campos. La ecuación cuadrática de segundo grado $Ax^2 + Bxy + Cy^2 + Dx + Ey + F = 0$ se convirtió en el marco general para describir todas las cónicas.
+                </p>
+                <p>
+                    <h3>Fórmulas y Propiedades Detalladas</h3>
+                    La elipse posee una serie de elementos y propiedades que la caracterizan completamente:
+                    <ul>
+                        <li><b>Focos ($F_1, F_2$):</b> Son los dos puntos fijos esenciales en la definición de la elipse. Se sitúan sobre el eje mayor, equidistantes del centro.</li>
+                        <li><b>Eje mayor (2a):</b> Es el segmento de recta más largo que atraviesa la elipse y pasa por los dos focos y el centro. Sus extremos son los vértices de la elipse ($V_1, V_2$). Su longitud total es $2a$, donde $a$ es la longitud del semieje mayor.</li>
+                        <li><b>Eje menor (2b):</b> Es el segmento de recta más corto que atraviesa la elipse, perpendicular al eje mayor y que también pasa por el centro. Sus extremos son los covértices ($C_1, C_2$). Su longitud total es $2b$, donde $b$ es la longitud del semieje menor.</li>
+                        <li><b>Centro (h, k):</b> Es el punto medio de los ejes mayor y menor, el punto de simetría de la elipse.</li>
+                        <li><b>Distancia focal (2c):</b> Es la distancia entre los dos focos. La relación entre $a$, $b$ y $c$ en una elipse está dada por el teorema de Pitágoras generalizado: $a^2 = b^2 + c^2$.</li>
+                        <li><b>Excentricidad (e):</b> Es una medida adimensional que describe cuán "aplanada" o "circular" es la elipse. Se define como la relación $e = c/a$. Dado que $c < a$, la excentricidad de una elipse siempre cumple $0 \le e < 1$.
+                            <ul>
+                                <li>Si $e = 0$, la elipse es un círculo (los focos coinciden con el centro).</li>
+                                <li>A medida que $e$ se acerca a 1, la elipse se vuelve más alargada y delgada.</li>
+                            </ul>
+                        </li>
+                        <li><b>Directrices:</b> Para cada foco, existe una línea recta asociada llamada directriz. La elipse puede definirse también como el lugar geométrico de los puntos cuya relación de distancia a un foco y a la directriz correspondiente es una constante (la excentricidad).</li>
+                    </ul>
+                </p>
+                <p>
+                    <h4>Ecuaciones Fundamentales:</h4>
+                    Para una elipse con <b>centro en el origen $(0,0)$</b>:
+                    <ul>
+                        <li>Si el <b>eje mayor es horizontal</b> (a lo largo del eje x): $\frac{x^2}{a^2} + \frac{y^2}{b^2} = 1$</li>
+                        <li>Si el <b>eje mayor es vertical</b> (a lo largo del eje y): $\frac{x^2}{b^2} + \frac{y^2}{a^2} = 1$</li>
+                    </ul>
+                    Para una elipse con <b>centro en $(h,k)$</b> (translada del origen):
+                    <ul>
+                        <li>Si el <b>eje mayor es horizontal</b>: $\frac{(x-h)^2}{a^2} + \frac{(y-k)^2}{b^2} = 1$</li>
+                        <li>Si el <b>eje mayor es vertical</b>: $\frac{(x-h)^2}{b^2} + \frac{(y-k)^2}{a^2} = 1$</li>
+                    </ul>
+                    Donde $a$ es la longitud del semieje mayor (del centro al vértice) y $b$ es la longitud del semieje menor (del centro al covértice), y siempre se cumple $a > b$.
+
+                    Las <b>ecuaciones paramétricas</b> también son útiles, especialmente en gráficos por computadora y física:
+                    <ul>
+                        <li>Para una elipse centrada en $(h,k)$ con eje mayor horizontal:
+                            $x = h + a \cos(t)$
+                            $y = k + b \sin(t)$
+                            donde $t$ varía de $0$ a $2\pi$ (o $0$ a $360^\circ$).
+                        </li>
+                        <li>Para una elipse centrada en $(h,k)$ con eje mayor vertical:
+                            $x = h + b \cos(t)$
+                            $y = k + a \sin(t)$
+                        </li>
+                    </ul>
+                </p>
+                <p>
+                    <h3>Formas y Variaciones</h3>
+                    La forma de una elipse está intrínsecamente ligada a su excentricidad:
+                    <ul>
+                        <li><b>Círculo:</b> Es el caso degenerado de la elipse donde los dos focos coinciden en un único punto (el centro del círculo), y los semiejes mayor y menor son iguales ($a=b=r$, el radio). Su excentricidad es $e=0$.</li>
+                        <li><b>Elipses alargadas (altamente excéntricas):</b> A medida que la excentricidad se acerca a 1 (pero nunca lo alcanza), los focos se alejan del centro y se acercan a los vértices. La elipse se vuelve cada vez más "plana" o "alargada". Un ejemplo extremo son las órbitas de algunos cometas.</li>
+                        <li><b>Orientación:</b> Las elipses pueden estar orientadas con su eje mayor alineado con el eje X (horizontal) o el eje Y (vertical). También pueden estar rotadas en cualquier ángulo con respecto a los ejes de coordenadas, lo que introduce un término $xy$ en su ecuación general y hace su representación un poco más compleja, a menudo requiriendo transformaciones de coordenadas.</li>
+                    </ul>
+                </p>
+                <p>
+                    <h3>Aplicaciones de la Elipse</h3>
+                    Las elipses tienen una sorprendente cantidad de aplicaciones prácticas y teóricas en ciencia, ingeniería, arte y la vida cotidiana:
+                    <ul>
+                        <li><b>Astronomía y Astrofísica:</b>
+                            <ul>
+                                <li><b>Órbitas Planetarias:</b> La aplicación más famosa, las leyes de Kepler describen las órbitas elípticas de los cuerpos celestes. Esta es la base para calcular trayectorias de naves espaciales, satélites y comprender el movimiento de los objetos en el sistema solar. [Image of elliptical orbit]</li>
+                                <li><b>Sistemas Binarios:</b> Las estrellas en sistemas binarios a menudo orbitan alrededor de un centro de masa común en trayectorias elípticas.</li>
+                            </ul>
+                        </li>
+                        <li><b>Acústica y Óptica (Propiedad de Reflexión Focal):</b>
+                            <ul>
+                                <li><b>Galerías de susurros:</b> Edificios con techos elípticos (o secciones elípticas) donde un susurro emitido en un foco es audiblemente claro en el otro foco, incluso a gran distancia. Famosos ejemplos incluyen la Estación Central de Nueva York y el Salón de la Estatua en el Capitolio de Estados Unidos.</li>
+                                <li><b>Reflectores elípticos:</b> Utilizados en faros de automóviles, lámparas, y algunos tipos de estufas solares. Cualquier rayo de luz o sonido que emana de un foco y golpea la superficie elíptica se reflejará hacia el otro foco, concentrando la energía.</li>
+                                <li><b>Litotricia Extracorpórea:</b> Una aplicación médica donde las ondas de choque (generalmente sónicas) generadas en un foco de un reflector elíptico se concentran en el otro foco, que se alinea con un cálculo renal, pulverizándolo sin necesidad de cirugía invasiva.</li>
+                            </ul>
+                        </li>
+                        <li><b>Ingeniería y Arquitectura:</b>
+                            <ul>
+                                <li><b>Diseño de Puentes y Arcos:</b> Muchos arcos de puentes históricos y estructuras arquitectónicas contemporáneas se construyen con forma elíptica por su distribución eficiente de cargas, estabilidad estructural y atractivo estético.</li>
+                                <li><b>Engranajes Elípticos:</b> Se utilizan en maquinaria donde se requiere una velocidad angular no uniforme o variable, como en máquinas textiles o prensas, para optimizar el rendimiento en diferentes partes del ciclo de operación.</li>
+                                <li><b>Tanques de Almacenamiento:</b> Algunos tanques o depósitos pueden tener secciones elípticas para optimizar la distribución de presión o para adaptarse a restricciones de espacio.</li>
+                                <li><b>Antenas:</b> Las superficies reflectoras de algunas antenas parabólicas son en realidad secciones de elipses o parábolas de revolución para enfocar señales de radio o microondas.</li>
+                            </ul>
+                        </li>
+                        <li><b>Gráficos por Computadora e Infografía:</b>
+                            <ul>
+                                <li><b>Renderización:</b> Los algoritmos de rasterización de elipses (como el Algoritmo de Punto Medio de Elipse) son fundamentales para dibujar elipses y arcos elípticos en pantallas de píxeles, esenciales en cualquier motor gráfico 2D o 3D.</li>
+                                <li><b>Diseño de Interfaz de Usuario (UI):</b> Botones redondeados, marcos, y elementos de diseño que requieren suavidad visual a menudo emplean formas elípticas.</li>
+                                <li><b>Animación y Efectos Visuales:</b> Las elipses se utilizan para definir trayectorias de movimiento, efectos de partículas, y deformaciones de objetos en animaciones.</li>
+                            </ul>
+                        </li>
+                        <li><b>Matemáticas y Física Teórica:</b>
+                            <ul>
+                                <li><b>Mecánica Clásica:</b> Más allá de las órbitas planetarias, la elipse aparece en el movimiento de un péndulo bajo ciertas condiciones, y en la descripción de vibraciones armónicas acopladas.</li>
+                                <li><b>Estadística:</b> En el análisis multivariante, las elipses de confianza se utilizan para visualizar la incertidumbre de estimaciones de parámetros en múltiples dimensiones.</li>
+                                <li><b>Óptica Geométrica:</b> La trayectoria de la luz a través de lentes y espejos elípticos es un tema de estudio.</li>
+                            </ul>
+                        </li>
+                        <li><b>Deportes y Recreación:</b>
+                            <ul>
+                                <li><b>Pistas de Atletismo:</b> Las secciones curvas de las pistas de atletismo tienen una forma elíptica para optimizar la curvatura para los corredores.</li>
+                                <li><b>Deportes de Raqueta:</b> El punto dulce en algunas raquetas puede ser descrito por una región elíptica.</li>
+                            </ul>
+                        </li>
+                        <li><b>Diseño de Productos:</b> En el diseño industrial, la elipse se utiliza para crear formas estéticas y ergonómicas en objetos cotidianos, desde botellas hasta dispositivos electrónicos, buscando un equilibrio entre funcionalidad y atractivo visual.</li>
+                    </ul>
+                </p>
+                <p>
+                    La <b>construcción de una elipse mediante la "definición de la cuerda"</b> es un método clásico y visualmente intuitivo. Para ello, se insertan dos chinchetas en los focos de la elipse sobre una superficie. Luego, se toma una cuerda de longitud igual al eje mayor (2a) y se ata cada extremo a una chincheta. Finalmente, se tensa la cuerda con un lápiz y se dibuja la curva mientras se mantiene la cuerda tensa. La punta del lápiz trazará la elipse perfecta, demostrando de manera sencilla su definición geométrica. [Image of drawing an ellipse with string and tacks]
+                </p>
+                <p>
+                    En conclusión, la elipse es mucho más que una simple curva geométrica o una sección cónica. Desde su descubrimiento en la antigüedad y su formalización por Apolonio, hasta su papel central en la revolución copernicana con las leyes de Kepler y su explicación por Newton, y sus innumerables aplicaciones modernas en una vasta gama de disciplinas, sigue siendo un pilar fundamental en la comprensión de nuestro universo y en el desarrollo de la tecnología. Su estudio no solo es un ejercicio matemático, sino una ventana a los principios que rigen el mundo físico que nos rodea y una herramienta indispensable para la innovación y el diseño.
+                </p>
+                <p>
+                    A pesar de la creciente complejidad de los algoritmos gráficos y las capacidades de hardware modernas, la elipse y sus propiedades fundamentales siguen siendo temas de estudio esenciales en la educación matemática y de ingeniería. Su elegancia y versatilidad aseguran su relevancia en el futuro, ya sea en la exploración espacial, la medicina, la informática o el diseño.
+                </p>
+            </div>
+        </div>
+
+    </div>
+</body>
+</html>

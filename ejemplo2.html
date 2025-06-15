@@ -1,0 +1,205 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Elipses – Método de Punto Medio</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f9f9f9;
+    }
+
+    .contenedor {
+      border: 3px solid #346b0f; /* marco verde */
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      color: #346b0f;
+    }
+
+    .ejemplo {
+      margin-top: 30px;
+      padding: 15px;
+      border: 2px dashed #346b0f;
+      border-radius: 10px;
+    }
+
+    .titulo-ejemplo {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #346b0f;
+    }
+
+    .pasos {
+      white-space: pre-line;
+      padding: 10px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    canvas {
+      background: #ffffff;
+      border: 1px solid #ccc;
+      display: block;
+      margin: 20px auto;
+    }
+    @media (max-width: 480px) {
+  body {
+    margin: 10px; /* Margen aún más reducido para móviles */
+  }
+
+  .contenedor {
+    padding: 10px; /* Más reducción de padding */
+  }
+
+  h1 {
+    font-size: 1.6em; /* Título aún más pequeño para pantallas muy pequeñas */
+  }
+
+  .titulo-ejemplo {
+    font-size: 16px; /* Título de ejemplo más pequeño */
+  }
+
+  .pasos {
+    font-size: 13px; /* Tamaño de fuente más pequeño para los pasos */
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Resolución de Elipses - Método de Punto Medio</h1>
+
+    <div class="ejemplo">
+      <div class="titulo-ejemplo">Ejemplo 1: Elipse con centro en (0,0), a=5, b=3</div>
+      <div class="pasos" id="pasos1"></div>
+      <canvas id="grafica1" width="400" height="300"></canvas>
+    </div>
+
+    <div class="ejemplo">
+      <div class="titulo-ejemplo">Ejemplo 2: Elipse con centro en (2,1), a=4, b=2</div>
+      <div class="pasos" id="pasos2"></div>
+      <canvas id="grafica2" width="400" height="300"></canvas>
+    </div>
+  </div>
+
+  <script>
+    function mostrarPasos() {
+      const pasos1 = `
+EJEMPLO 1 – CENTRO EN (0,0), a = 5, b = 3
+
+Paso 1: Conocer la ecuación general de la elipse centrada en el origen:
+   (x² / a²) + (y² / b²) = 1
+
+Paso 2: Inicializamos valores:
+   a = 5, b = 3 ⇒ a² = 25, b² = 9
+
+Paso 3: Comenzamos en el punto (0, b) = (0, 3)
+
+Paso 4: Fase 1: Región donde la pendiente es < 1 (b²x ≤ a²y)
+
+Usamos el criterio del punto medio:
+
+   p1 = b² - a²b + ¼a²
+      = 9 - 25(3) + ¼(25)
+      = 9 - 75 + 6.25 = -59.75
+
+Iteramos mientras b²x < a²y
+
+Calculamos x, y, y el punto medio en cada paso. Si p < 0, elegimos Este; si p ≥ 0, elegimos Sureste.
+
+Paso 5: Fase 2: Región donde la pendiente es > 1
+
+Aquí cambia la condición y el cálculo del punto medio.
+
+Se continúa hasta que y = 0, reflejando todos los puntos obtenidos en los 4 cuadrantes.
+
+Paso 6: Graficamos los puntos para formar la elipse con simetría.
+
+Paso 7: Conclusión:
+   Se obtuvo una elipse centrada en (0,0) con eje mayor horizontal.
+   Gráfica en el plano cartesiano completada.`;
+
+      const pasos2 = `
+EJEMPLO 2 – CENTRO EN (2,1), a = 4, b = 2
+
+Paso 1: Ecuación general centrada en (h,k):
+   ((x - h)² / a²) + ((y - k)² / b²) = 1
+
+h = 2, k = 1, a = 4, b = 2 ⇒ a² = 16, b² = 4
+
+Paso 2: Trasladamos el algoritmo al nuevo centro.
+Comenzamos en (0, b) respecto al centro ⇒ punto inicial: (0,2)
+
+Paso 3: Fase 1 (b²x < a²y):
+
+   p1 = b² - a²b + ¼a²
+      = 4 - 16(2) + 4 = -28
+
+Usamos el algoritmo de punto medio como en el ejemplo anterior.
+
+Paso 4: Fase 2: cuando cambia la relación de pendiente
+
+Seguimos calculando puntos hasta que y = 0.
+
+Paso 5: Reflejamos los puntos respecto al centro y al eje para completar la curva.
+
+Paso 6: Conclusión:
+   La elipse está centrada en (2,1), con eje mayor horizontal y menor vertical.
+   Los puntos calculados se usan para la gráfica.`;
+
+      document.getElementById("pasos1").innerText = pasos1;
+      document.getElementById("pasos2").innerText = pasos2;
+    }
+
+    function dibujarElipse(canvasId, cx, cy, a, b) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext("2d");
+
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.scale(1, -1);
+
+      // Ejes
+      ctx.strokeStyle = "#ccc";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(-canvas.width / 2, 0);
+      ctx.lineTo(canvas.width / 2, 0);
+      ctx.moveTo(0, -canvas.height / 2);
+      ctx.lineTo(0, canvas.height / 2);
+      ctx.stroke();
+
+      const escala = 20;
+
+      ctx.strokeStyle = "#346b0f";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let t = 0; t <= 2 * Math.PI; t += 0.01) {
+        const x = a * Math.cos(t);
+        const y = b * Math.sin(t);
+        ctx.lineTo((x + cx) * escala, (y + cy) * escala);
+      }
+      ctx.stroke();
+
+      // Centro
+      ctx.fillStyle = "red";
+      ctx.beginPath();
+      ctx.arc(cx * escala, cy * escala, 3, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
+    mostrarPasos();
+    dibujarElipse("grafica1", 0, 0, 5, 3);
+    dibujarElipse("grafica2", 2, 1, 4, 2);
+  </script>
+</body>
+</html>

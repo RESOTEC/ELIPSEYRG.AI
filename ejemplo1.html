@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Resolución de Elipses – Forma Canónica</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      margin: 20px;
+      background: #f8f8f8;
+    }
+
+    .contenedor {
+      border: 3px solid #700c57; /* Color personalizado del marco */
+      border-radius: 10px;
+      padding: 20px;
+      background-color: #fff;
+    }
+
+    h1 {
+      text-align: center;
+      color: #700c57;
+    }
+
+    .ejemplo {
+      margin-top: 30px;
+      padding: 15px;
+      border: 2px dashed #700c57;
+      border-radius: 10px;
+    }
+
+    .titulo-ejemplo {
+      font-size: 20px;
+      font-weight: bold;
+      margin-bottom: 10px;
+      color: #700c57;
+    }
+
+    .pasos {
+      white-space: pre-line;
+      padding: 10px;
+      font-size: 15px;
+      line-height: 1.5;
+    }
+
+    canvas {
+      background: #ffffff;
+      border: 1px solid #ccc;
+      display: block;
+      margin: 20px auto;
+    }
+  @media (max-width: 480px) {
+  body {
+    margin: 10px; /* Margen aún más reducido para móviles */
+  }
+
+  .contenedor {
+    padding: 10px; /* Más reducción de padding */
+  }
+
+  h1 {
+    font-size: 1.6em; /* Título aún más pequeño para pantallas muy pequeñas */
+  }
+
+  .titulo-ejemplo {
+    font-size: 16px; /* Título de ejemplo más pequeño */
+  }
+
+  .pasos {
+    font-size: 13px; /* Tamaño de fuente más pequeño para los pasos */
+  }
+}
+@media (min-width: 1025px) {
+
+  .contenedor {
+    max-width: 1200px;
+    padding: 40px;
+  }
+
+  h1 {
+    font-size: 3.5em;
+  }
+}
+  </style>
+</head>
+<body>
+  <div class="contenedor">
+    <h1>Resolución de Elipses - Forma Canónica</h1>
+
+    <div class="ejemplo">
+      <div class="titulo-ejemplo">Ejemplo 1: Elipse con eje mayor horizontal</div>
+      <div class="pasos" id="pasos1"></div>
+      <canvas id="grafica1" width="400" height="300"></canvas>
+    </div>
+
+    <div class="ejemplo">
+      <div class="titulo-ejemplo">Ejemplo 2: Elipse con eje mayor vertical</div>
+      <div class="pasos" id="pasos2"></div>
+      <canvas id="grafica2" width="400" height="300"></canvas>
+    </div>
+  </div>
+
+  <script>
+    function mostrarPasos() {
+      const pasos1 = `
+EJEMPLO 1
+
+Dada la ecuación canónica de una elipse:
+
+   (x - 2)² / 16 + (y + 1)² / 9 = 1
+
+Paso 1: Identificar la forma general.
+La forma es: (x - h)² / a² + (y - k)² / b² = 1
+
+Comparando:
+- h = 2
+- k = -1
+- a² = 16 → a = 4
+- b² = 9 → b = 3
+
+Paso 2: Identificar el centro de la elipse.
+El centro está en el punto (h, k) = (2, -1)
+
+Paso 3: Determinar la orientación.
+Como a² = 16 > b² = 9, la elipse es horizontal.
+Esto significa que el eje mayor está a lo largo del eje X.
+
+Paso 4: Calcular los extremos del eje mayor (vértices principales).
+Desde el centro, movemos a unidades hacia la izquierda y derecha:
+- Vértice izquierdo: (2 - 4, -1) = (-2, -1)
+- Vértice derecho: (2 + 4, -1) = (6, -1)
+
+Paso 5: Calcular los extremos del eje menor (vértices secundarios).
+Desde el centro, movemos b unidades hacia arriba y abajo:
+- Vértice superior: (2, -1 + 3) = (2, 2)
+- Vértice inferior: (2, -1 - 3) = (2, -4)
+
+Paso 6: Calcular la distancia focal (c).
+Usamos la fórmula: c² = a² - b² = 16 - 9 = 7 → c = √7 ≈ 2.65
+
+Paso 7: Determinar los focos.
+Como es horizontal, los focos se ubican a la izquierda y derecha del centro:
+- Foco izquierdo: (2 - √7, -1) ≈ (2 - 2.65, -1) ≈ (-0.65, -1)
+- Foco derecho: (2 + √7, -1) ≈ (4.65, -1)
+
+Paso 8: Conclusión.
+La elipse tiene centro en (2, -1), vértices principales en (-2, -1) y (6, -1),
+y focos en aproximadamente (-0.65, -1) y (4.65, -1).`;
+
+      const pasos2 = `
+EJEMPLO 2
+
+Dada la ecuación:
+
+   (x + 1)² / 9 + (y - 3)² / 25 = 1
+
+Paso 1: Reescribimos como:
+   (x - (-1))² / 9 + (y - 3)² / 25 = 1
+
+Paso 2: Identificar valores.
+- h = -1
+- k = 3
+- a² = 25 → a = 5
+- b² = 9  → b = 3
+
+Paso 3: Centro de la elipse.
+El centro está en (h, k) = (-1, 3)
+
+Paso 4: Determinar la orientación.
+Como a² = 25 > b² = 9, y a está en el denominador de la parte del "y",
+la elipse es vertical.
+
+Paso 5: Vértices principales (eje mayor vertical).
+Desde el centro, movemos a unidades hacia arriba y abajo:
+- Vértice inferior: (-1, 3 - 5) = (-1, -2)
+- Vértice superior: (-1, 3 + 5) = (-1, 8)
+
+Paso 6: Vértices secundarios (eje menor horizontal).
+Desde el centro, movemos b unidades a los lados:
+- Izquierda: (-1 - 3, 3) = (-4, 3)
+- Derecha:  (-1 + 3, 3) = (2, 3)
+
+Paso 7: Distancia focal.
+c² = a² - b² = 25 - 9 = 16 → c = 4
+
+Paso 8: Focos.
+Como es vertical, los focos están arriba y abajo del centro:
+- Foco inferior: (-1, 3 - 4) = (-1, -1)
+- Foco superior: (-1, 3 + 4) = (-1, 7)
+
+Paso 9: Conclusión.
+La elipse tiene centro en (-1, 3), vértices en (-1, -2) y (-1, 8),
+focos en (-1, -1) y (-1, 7).`;
+
+      document.getElementById("pasos1").innerText = pasos1;
+      document.getElementById("pasos2").innerText = pasos2;
+    }
+
+    function dibujarElipse(canvasId, cx, cy, a, b) {
+      const canvas = document.getElementById(canvasId);
+      const ctx = canvas.getContext("2d");
+
+      ctx.translate(canvas.width / 2, canvas.height / 2);
+      ctx.scale(1, -1);
+
+      // Ejes
+      ctx.strokeStyle = "#aaa";
+      ctx.lineWidth = 1;
+      ctx.beginPath();
+      ctx.moveTo(-canvas.width / 2, 0);
+      ctx.lineTo(canvas.width / 2, 0);
+      ctx.moveTo(0, -canvas.height / 2);
+      ctx.lineTo(0, canvas.height / 2);
+      ctx.stroke();
+
+      const escala = 20;
+
+      ctx.strokeStyle = "#700c57";
+      ctx.lineWidth = 2;
+      ctx.beginPath();
+      for (let t = 0; t <= 2 * Math.PI; t += 0.01) {
+        const x = a * Math.cos(t);
+        const y = b * Math.sin(t);
+        ctx.lineTo((x + cx) * escala, (y + cy) * escala);
+      }
+      ctx.stroke();
+
+      ctx.fillStyle = "red";
+      ctx.beginPath();
+      ctx.arc(cx * escala, cy * escala, 3, 0, 2 * Math.PI);
+      ctx.fill();
+
+      ctx.setTransform(1, 0, 0, 1, 0, 0);
+    }
+
+    mostrarPasos();
+    dibujarElipse("grafica1", 2, -1, 4, 3);
+    dibujarElipse("grafica2", -1, 3, 3, 5);
+  </script>
+</body>
+</html>
+
